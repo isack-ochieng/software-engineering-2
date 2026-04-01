@@ -1,22 +1,37 @@
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Signup from './signup.jsx'
-import Login from './login.jsx'
-import Dashboard from './Dashboard.jsx'
-import './App.css'
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Signup from './signup.jsx';
+import Login from './login.jsx';
+import Dashboard from './Dashboard.jsx';
+import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/"          element={<Navigate to="/signup" />} />
-        <Route path="/signup"    element={<Signup />} />
-        <Route path="/login"     element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;

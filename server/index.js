@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors    = require("cors");
+const authenticateToken = require("./middleware/auth");
+const Employee = require("./models/Employee");
 const bcrypt  = require("bcryptjs");
 const jwt     = require("jsonwebtoken");
 const User    = require("./models/authDB");
@@ -102,6 +104,34 @@ app.post("/login", async (req, res) => {
     console.error("❌ Login error:", err.message);
     res.status(500).json({ message: "Error logging in. Please try again." });
   }
+});
+
+// Protected: Get all employees
+app.get("/api/employees", authenticateToken, async (req, res) => {
+  try {
+    const employees = await Employee.find().sort({ name: 1 });
+    res.json(employees);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching employees" });
+  }
+});
+
+// Protected: Get single employee
+app.get("/api/employees/:id", authenticateToken, async (req, res) => {
+  try {
+    const emp = await Employee.findById(req.params.id);
+    if (!emp) return res.status(404).json({ message: "Employee not found" });
+    res.json(emp);
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching employee" });
+  }
+});
+
+// Optional: Add more (POST, PUT, DELETE) later
+
+// Protected test route
+app.get("/api/me", authenticateToken, (req, res) => {
+  res.json({ user: req.user });
 });
 
 // ── HEALTH / TEST ─────────────────────────────────────────────────────────────
