@@ -193,6 +193,9 @@ const DashboardPage = ({ employees, setActivePage, onSelectEmployee, loading }) 
 const EmployeeCard = ({ emp, onClick }) => (
   <div className="emp-card" onClick={() => onClick(emp)}>
     <div className="emp-card-top">
+      // Inside EmployeeCard
+<div className="emp-info-row"><Phone size={13}/><span>{emp.phone || "Not provided"}</span></div>
+<div className="emp-info-row"><Briefcase size={13}/><span>{emp.position || emp.role}</span></div>
       <Avatar initials={emp.photo || emp.name.split(" ").map(n => n[0]).join("").slice(0,2)} size="lg"/>
       <StatusPill status={emp.status}/>
     </div>
