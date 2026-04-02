@@ -43,25 +43,23 @@ app.post("/signup", async (req, res) => {
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+// ✅ Correct code (single hash via model)
+const user = new User({
+  name,
+  email: email.toLowerCase(),
+  password: password,      // plain text – pre‑save will hash it once
+  employeeId,
+  role: role || "employee",
+  department: department || "General",
+  position: position || role || "Staff",
+  phone: phone || "",
+  status: "Active",
+  isActive: true,
+  joinedDate: new Date(),
+  photo: name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase()
+});
 
-    // Create new user/employee
-    const user = new User({
-      name,
-      email: email.toLowerCase(),
-      password: hashedPassword,
-      employeeId,
-      role: role || "employee",
-      department: department || "General",
-      position: position || role || "Staff",
-      phone: phone || "",
-      status: "Active",
-      isActive: true,
-      joinedDate: new Date(),
-      photo: name.split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase() // Auto-generate initials
-    });
-
-    await user.save();
+await user.save();  // now pre-save hashes only once
     console.log("✅ Created user/employee:", user.email);
 
     // Generate token
