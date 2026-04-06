@@ -4,10 +4,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    proxy: {
-      '/signup': 'http://localhost:3001',
-      '/login':  'http://localhost:3001',
-      '/health': 'http://localhost:3001',
-    }
+    port: 5173,
+    // No proxy for /login and /signup to avoid "Cannot GET /login"
+    // Only proxy /api routes if needed later
   }
 })

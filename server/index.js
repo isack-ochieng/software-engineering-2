@@ -300,7 +300,7 @@ app.get("/health", (_, res) => res.json({ status: "OK", timestamp: new Date() })
 app.get("/test", (_, res) => res.json({ message: "Server is working!" }));
 
 // ── START SERVER ────────────────────────────────────────────────────────
-const PORT = 3001;
+const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`\n🚀 Server running on http://localhost:${PORT}`);
   console.log(`📡 Test: http://localhost:${PORT}/test`);

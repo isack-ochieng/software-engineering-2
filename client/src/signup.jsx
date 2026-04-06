@@ -6,6 +6,7 @@ import {
   Phone, CheckCircle, AlertCircle, Calendar
 } from "lucide-react";
 import "./App.css";
+import api from "./api"; // ← Import the configured API instance  
 
 function Signup() {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ function Signup() {
     }
 
     try {
-      const res = await axios.post("/signup", {
+      const res = await api.post("/signup", {
         name: formData.name,
         email: formData.email,
         password: formData.password,
