@@ -134,7 +134,7 @@ function Signup() {
               <input
                 type="text"
                 name="name"
-                placeholder="John Doe"
+                placeholder="Isack Ochieng"
                 value={formData.name}
                 onChange={handleChange}
                 className="signup-input"
@@ -152,7 +152,7 @@ function Signup() {
               <input
                 type="text"
                 name="employeeId"
-                placeholder="EMP-2024-001"
+                placeholder="SB06-SR-2026-24"
                 value={formData.employeeId}
                 onChange={handleChange}
                 className="signup-input"
@@ -170,7 +170,7 @@ function Signup() {
               <input
                 type="email"
                 name="email"
-                placeholder="john.doe@taifasystems.com"
+                placeholder="isackochieng@taifasystems.com"
                 value={formData.email}
                 onChange={handleChange}
                 className="signup-input"

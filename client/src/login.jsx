@@ -117,7 +117,7 @@ function Login() {
               <input
                 type="email"
                 name="email"
-                placeholder="john.doe@taifasystems.com"
+                placeholder="isackochieng@taifasystems.com"
                 value={formData.email}
                 onChange={handleChange}
                 className="signup-input"
@@ -184,11 +184,6 @@ function Login() {
             Don't have an account?{" "}
             <Link to="/signup" className="signup-link">Create Account</Link>
           </p>
-
-          <div className="signup-security-note">
-            <Fingerprint size={14} />
-            <span>Your data is protected with enterprise-grade security</span>
-          </div>
         </form>
       </div>
     </div>
